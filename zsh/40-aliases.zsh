@@ -1,0 +1,10 @@
+# Navigation and project aliases.
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias yd='yarn dev'
+alias pd='pnpm dev'
+alias yp='yarn prod'
+alias yb='yarn build'
+alias ys='yarn start'
+alias xcode='open -a Xcode'

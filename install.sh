@@ -35,4 +35,8 @@ ln -sfn "$HOME/.config/zsh-local/90-local.zsh" "$HOME/.config/zsh/90-local.zsh"
 # ghostty
 link "$REPO_DIR/ghostty" "$HOME/.config/ghostty"
 
+# orca
+mkdir -p "$HOME/.orca"
+link "$REPO_DIR/orca/agent-hooks" "$HOME/.orca/agent-hooks"
+
 echo "Done. Restart your shell or run: exec zsh"

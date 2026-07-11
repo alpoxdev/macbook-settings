@@ -1,0 +1,73 @@
+# ============================================
+# 자동 tmux 시작 (Agent Teams 지원) - 비활성화
+# 수동 실행: tmux attach || tmux new -s main
+# ============================================
+# command = /bin/zsh -l -c "tmux attach 2>/dev/null || tmux new -s main"
+
+# ============================================
+# 폰트 & 테마
+# ============================================
+font-family = "D2Coding"
+font-size = 11
+font-thicken = false
+# theme = "Catppuccin Mocha"  # 기본 검은 배경 사용
+
+# ============================================
+# 클립보드 (OSC 52)
+# ============================================
+copy-on-select = clipboard
+clipboard-read = allow
+clipboard-write = allow
+clipboard-paste-protection = true
+
+# ============================================
+# SSH 통합 (원격 서버 terminfo 자동 설치)
+# ============================================
+shell-integration-features = ssh-env,ssh-terminfo
+
+# ============================================
+# macOS 설정
+# ============================================
+macos-option-as-alt = true
+
+# ============================================
+# 한글 IME 상태에서도 붙여넣기 작동 (Physical Key)
+# Claude Code는 Ctrl+V 사용 (Cmd+V 아님!)
+# ============================================
+keybind = ctrl+KeyV=paste_from_clipboard
+keybind = super+KeyV=paste_from_clipboard
+
+# ============================================
+# Claude Code 필수: Shift+Enter 줄바꿈
+# ============================================
+keybind = shift+enter=text:\n
+
+# ============================================
+# Quick Terminal
+# ============================================
+keybind = global:cmd+;=toggle_quick_terminal
+
+# ============================================
+# tmux 윈도우 전환 (Cmd+숫자)
+# ============================================
+keybind = cmd+one=text:\x02\x31
+keybind = cmd+two=text:\x02\x32
+keybind = cmd+three=text:\x02\x33
+keybind = cmd+four=text:\x02\x34
+keybind = cmd+five=text:\x02\x35
+keybind = cmd+six=text:\x02\x36
+keybind = cmd+seven=text:\x02\x37
+keybind = cmd+eight=text:\x02\x38
+keybind = cmd+nine=text:\x02\x39
+
+# ============================================
+# Vim 스타일 분할 네비게이션
+# ============================================
+keybind = opt+h=goto_split:left
+keybind = opt+j=goto_split:bottom
+keybind = opt+k=goto_split:top
+keybind = opt+l=goto_split:right
+
+# Disable dim/blur effect on unfocused cmux/Ghostty splits
+unfocused-split-opacity = 1
+background-blur = false

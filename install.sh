@@ -15,10 +15,12 @@ link() {
 }
 
 mkdir -p "$HOME/.config"
-link "$REPO_DIR/zsh" "$HOME/.config/zsh"
-link "$REPO_DIR/zshrc" "$HOME/.zshrc"
-link "$REPO_DIR/zprofile" "$HOME/.zprofile"
-link "$REPO_DIR/zshenv" "$HOME/.zshenv"
+
+# zsh
+link "$REPO_DIR/zsh/conf.d" "$HOME/.config/zsh"
+link "$REPO_DIR/zsh/zshrc" "$HOME/.zshrc"
+link "$REPO_DIR/zsh/zprofile" "$HOME/.zprofile"
+link "$REPO_DIR/zsh/zshenv" "$HOME/.zshenv"
 
 LOCAL="$HOME/.config/zsh-local/90-local.zsh"
 if [[ ! -e "$LOCAL" ]]; then
@@ -29,5 +31,8 @@ EOF
   echo "Created machine-local override at $LOCAL (edit freely, never synced)"
 fi
 ln -sfn "$HOME/.config/zsh-local/90-local.zsh" "$HOME/.config/zsh/90-local.zsh"
+
+# ghostty
+link "$REPO_DIR/ghostty" "$HOME/.config/ghostty"
 
 echo "Done. Restart your shell or run: exec zsh"

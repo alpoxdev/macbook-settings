@@ -1,11 +1,12 @@
 # zsh-settings
 
-Personal zsh config, shared across machines (MacBook, Mac mini).
+Personal shell + terminal config, shared across machines (MacBook, Mac mini).
 
 ## Layout
 
-- `zshrc`, `zprofile`, `zshenv` — symlinked to `~/.zshrc`, `~/.zprofile`, `~/.zshenv`
-- `zsh/` — symlinked to `~/.config/zsh`, loaded in order by `zshrc`
+- `zsh/zshrc`, `zsh/zprofile`, `zsh/zshenv` — symlinked to `~/.zshrc`, `~/.zprofile`, `~/.zshenv`
+- `zsh/conf.d/` — symlinked to `~/.config/zsh`, loaded in order by `zshrc`
+- `ghostty/` — symlinked to `~/.config/ghostty` (Ghostty terminal config)
 - Machine-local, non-synced overrides live in `~/.config/zsh-local/90-local.zsh`
   (symlinked to `~/.config/zsh/90-local.zsh`, never committed to this repo)
 

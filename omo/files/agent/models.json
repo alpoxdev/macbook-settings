@@ -1,0 +1,536 @@
+{
+  "providers": {
+    "opencodex": {
+      "baseUrl": "http://127.0.0.1:10100/v1",
+      "api": "openai-completions",
+      "apiKey": "opencodex-loopback",
+      "compat": {
+        "sendSessionAffinityHeaders": true
+      },
+      "models": [
+        {
+          "id": "anthropic/claude-fable-5-1",
+          "name": "claude-fable-5-1 (anthropic)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          },
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "anthropic/claude-opus-4-8",
+          "name": "claude-opus-4-8 (anthropic)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          }
+        },
+        {
+          "id": "anthropic/claude-opus-5",
+          "name": "claude-opus-5 (anthropic)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          }
+        },
+        {
+          "id": "anthropic/claude-sonnet-5",
+          "name": "claude-sonnet-5 (anthropic)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          }
+        },
+        {
+          "id": "bai/deepseek-v4.1-flash",
+          "name": "deepseek-v4.1-flash (bai)",
+          "input": [
+            "text"
+          ],
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "bai/glm-5.3-flash",
+          "name": "glm-5.3-flash (bai)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "cline/~deepseek-deepseek-flash-latest",
+          "name": "~deepseek/deepseek-flash-latest (cline)",
+          "input": [
+            "text"
+          ],
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "cline/~z-ai-glm-flash-latest",
+          "name": "~z-ai/glm-flash-latest (cline)",
+          "input": [
+            "text"
+          ],
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "combo/deepseek-v4.1-flash",
+          "name": "deepseek-v4.1-flash (combo)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": null,
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "combo/glm-5.3-flash",
+          "name": "glm-5.3-flash (combo)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "combo/union-alpha",
+          "name": "union-alpha (combo)",
+          "input": [
+            "text"
+          ],
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "command-code/deepseek-deepseek-v4.1-flash",
+          "name": "deepseek/deepseek-v4.1-flash (command-code)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": null,
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "command-code/z-ai-glm-5.3-flash",
+          "name": "z-ai/glm-5.3-flash (command-code)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          }
+        },
+        {
+          "id": "devin/deepseek-v4-1-flash",
+          "name": "deepseek-v4-1-flash (devin)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          },
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "devin/glm-5-3-flash",
+          "name": "glm-5-3-flash (devin)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          },
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "devin/swe-2",
+          "name": "swe-2 (devin)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": null,
+            "medium": "medium",
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "contextWindow": 262000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "gpt-5.6-luna",
+          "name": "gpt-5.6-luna (native)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          },
+          "contextWindow": 922000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "gpt-5.6-luna--fast",
+          "name": "gpt-5.6-luna Fast (native)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          },
+          "contextWindow": 922000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "gpt-5.6-sol",
+          "name": "gpt-5.6-sol (native)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          },
+          "contextWindow": 922000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "gpt-5.6-sol--fast",
+          "name": "gpt-5.6-sol Fast (native)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          },
+          "contextWindow": 922000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "gpt-5.6-terra",
+          "name": "gpt-5.6-terra (native)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          },
+          "contextWindow": 922000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "gpt-5.6-terra--fast",
+          "name": "gpt-5.6-terra Fast (native)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          },
+          "contextWindow": 922000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "openai/gpt-6-astra",
+          "name": "GPT-6 Astra (openai)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1050000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "openai/gpt-6-astra--fast",
+          "name": "GPT-6 Astra Fast (openai)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1050000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "opencode-go/deepseek-v4-flash",
+          "name": "deepseek-v4-flash (opencode-go)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "opencode-go/glm-5.3-flash",
+          "name": "glm-5.3-flash (opencode-go)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "opencode-go/union-alpha",
+          "name": "union-alpha (opencode-go)",
+          "input": [
+            "text"
+          ],
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "xai/grok-4.6",
+          "name": "grok-4.6 (xai)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": null
+          },
+          "contextWindow": 500000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "xai/grok-4.6--fast",
+          "name": "grok-4.6 Fast (xai)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": null
+          },
+          "contextWindow": 500000,
+          "maxTokens": 32000
+        }
+      ]
+    }
+  },
+  "modelOverrides": {
+    "command-code/deepseek-deepseek-v4-flash": {
+      "reasoning": true
+    },
+    "command-code/z-ai-glm-5.3-flash": {
+      "reasoning": true
+    },
+    "opencode-free/deepseek-v4-flash-free": {
+      "reasoning": true
+    },
+    "opencode-go/deepseek-v4-flash": {
+      "reasoning": true
+    },
+    "opencode-go/deepseek-v4-pro": {
+      "reasoning": true
+    },
+    "opencode-go/glm-5.3-flash": {
+      "reasoning": true
+    },
+    "xai/grok-4.6": {
+      "reasoning": true
+    },
+    "command-code/deepseek-deepseek-v4-flash-fast": {
+      "reasoning": true
+    },
+    "combo/deepseek-v4-flash": {
+      "reasoning": true
+    },
+    "combo/glm-5.3-flash": {
+      "reasoning": true
+    }
+  }
+}

@@ -89,25 +89,6 @@
           "maxTokens": 32000
         },
         {
-          "id": "bai/glm-5.3-flash",
-          "name": "glm-5.3-flash (bai)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "thinkingLevelMap": {
-            "off": null,
-            "minimal": null,
-            "low": "low",
-            "medium": null,
-            "high": "high",
-            "xhigh": null,
-            "max": "max"
-          },
-          "contextWindow": 950000,
-          "maxTokens": 32000
-        },
-        {
           "id": "cline/~deepseek-deepseek-flash-latest",
           "name": "~deepseek/deepseek-flash-latest (cline)",
           "input": [
@@ -169,7 +150,17 @@
           "input": [
             "text"
           ],
-          "contextWindow": 950000,
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          },
+          "contextWindow": 262144,
           "maxTokens": 32000
         },
         {
@@ -453,9 +444,10 @@
           "id": "opencode-go/union-alpha",
           "name": "union-alpha (opencode-go)",
           "input": [
-            "text"
+            "text",
+            "image"
           ],
-          "contextWindow": 950000,
+          "contextWindow": 262144,
           "maxTokens": 32000
         },
         {

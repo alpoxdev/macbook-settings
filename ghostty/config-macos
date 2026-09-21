@@ -1,0 +1,11 @@
+# You can preview the config here
+
+shell-integration = zsh
+background = #111111
+cursor-color = #47C8C8
+font-size = 13
+font-thicken = false
+font-family = Jetendard
+copy-on-select = clipboard
+clipboard-paste-protection = false
+macos-option-as-alt = true

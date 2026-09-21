@@ -35,6 +35,12 @@ ln -sfn "$HOME/.config/zsh-local/90-local.zsh" "$HOME/.config/zsh/90-local.zsh"
 # ghostty
 link "$REPO_DIR/ghostty" "$HOME/.config/ghostty"
 
+# ghostty also loads the macOS app-support config, after ~/.config/ghostty/config,
+# so it wins on conflicting keys (background, cursor-color, font-size).
+GHOSTTY_SUPPORT="$HOME/Library/Application Support/com.mitchellh.ghostty"
+mkdir -p "$GHOSTTY_SUPPORT"
+link "$REPO_DIR/ghostty/config-macos" "$GHOSTTY_SUPPORT/config"
+
 # orca
 mkdir -p "$HOME/.orca"
 link "$REPO_DIR/orca/agent-hooks" "$HOME/.orca/agent-hooks"

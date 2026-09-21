@@ -7,6 +7,9 @@ Personal machine config, shared across machines (MacBook, Mac mini).
 - `zsh/zshrc`, `zsh/zprofile`, `zsh/zshenv` — symlinked to `~/.zshrc`, `~/.zprofile`, `~/.zshenv`
 - `zsh/conf.d/` — symlinked to `~/.config/zsh`, loaded in order by `zshrc`
 - `ghostty/` — symlinked to `~/.config/ghostty` (Ghostty terminal config)
+- `ghostty/config-macos` — symlinked to `~/Library/Application Support/com.mitchellh.ghostty/config`,
+  the second file macOS Ghostty loads (after the one above, so it wins on
+  conflicting keys: `background`, `cursor-color`, `font-size`)
 - `orca/agent-hooks/` — symlinked to `~/.orca/agent-hooks` (Orca agent hook scripts)
 - `orca/appearance.json` — Orca's appearance/theme/font settings (theme, sidebar
   tint, terminal font/theme/cursor/opacity, etc.), applied with

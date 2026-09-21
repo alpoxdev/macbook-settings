@@ -1,52 +1,52 @@
 // OMO configuration
 //
-// 서브에이전트(task) 실행 차단 — 2026-09-17.
-// 실제 차단은 ~/.omo/agent/settings.json 의 "permission" 블록이 한다.
-//   { "task": "deny", "task_*": "deny", "workpool": "deny" }
-// 세션 시작 시 위 도구들이 활성 목록에서 제거된다(새 세션부터 적용).
-// 다시 켜려면 settings.json 의 "permission" 블록을 지운다.
-//   백업: settings.json.bak.20260917-subagent-block
-//   (task.global_concurrency: 0 은 차단이 아니라 무제한이다 — 쓰지 말 것)
+// 서브에이전트 모델 고정 — 2026-09-21 (A안).
+// 모든 카테고리·에이전트를 opencodex/bai/deepseek-v4.1-flash 로 고정한다.
+// 자식(카테고리·에이전트)은 세션 모델을 상속하지 않으므로, 핀을 지우면 내장 체인의
+// 아무 모델로나 떨어진다. 해석 순서는
+//   1) 호출자가 넘긴 model 인자  2) agents.<n> 핀(가용성 검증 있음)
+//   3) categories.<n> 핀(검증 없음, 가장 강함)  4) 내장 체인  5) 시스템 기본 모델
+// 이므로 자식에게 model 인자를 직접 넘기면 이 핀을 이긴다. 규칙: ~/.omo/rules/subagent.md
 //
-// 아래 categories/agents 의 model 핀은 지우지 말 것.
-// 자식(카테고리·에이전트)은 세션 모델을 상속하지 않는다. 해석 순서는
-//   1) omo.json 핀  2) 내장 체인  3) 연결된 프로바이더가 서빙하는 첫 러그
-// 이므로 핀을 지우면 자식이 내장 체인의 아무 모델로나 떨어진다.
+// 2026-09-17 의 차단(permission deny)은 제거했다.
+//   되돌리려면 settings.json.bak.20260917-subagent-block 참고.
+//   (task.global_concurrency: 0 은 차단이 아니라 무제한이다 — 쓰지 말 것)
 {
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/omo.schema.json",
   // Shared-base categories: visible to every harness (senpi task engine included).
   // [opencode].categories below still wins for the OpenCode harness per-key.
+  // 전부 opencodex/bai/deepseek-v4.1-flash 고정 (2026-09-21). bai는 비추론 모델이라
+  // reasoning/variant 키를 두지 않는다.
   "categories": {
-    "memory-reflection": { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "quick":             { "model": "opencodex/command-code/deepseek-deepseek-v4.1-flash", "reasoning": "medium" },
-    "unspecified-low":    { "model": "opencodex/command-code/deepseek-deepseek-v4.1-flash", "reasoning": "medium" },
-    // command-code 라인에는 deepseek-v4-pro가 없어서, pro급 작업은 승인된 gpt-5.6-terra로 라우팅.
-    "deep-low":          { "model": "openai-codex/gpt-5.6-terra",                      "reasoning": "high" },
-    "unspecified-high":   { "model": "opencodex/xai/grok-4.6",                  "reasoning": "high" },
-    // opencode-go 라인은 게이트웨이 카탈로그에서 제거됨 (2026-09-16 확인) — combo 라인으로 교체.
-    "writing":           { "model": "opencodex/combo/glm-5.3-flash",         "reasoning": "medium" },
-    "artistry":          { "model": "opencodex/xai/grok-4.6",                  "reasoning": "high" },
-    "visual-engineering": { "model": "opencodex/xai/grok-4.6",                  "reasoning": "high" },
-    // reflection 전용: opencodex/bai/deepseek-v4.1-flash 고정 (2026-09-21 지정).
-    // fork 모드 자식은 부모 세션 전체를 물고 뜨므로, 272K 컨텍스트의 gpt-5.6-luna는
-    // RequiredCompactionError(child_exit)로 죽었다. bai는 950K라 그 자리를 견딘다.
-    // bai/deepseek-v4.1-flash는 비추론 모델이라 reasoning 키를 두지 않는다.
-    "reflection":        { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    // kakaotalk-mcp 실행 전용: 사용자가 지정한 구현 실행기 (2026-09-15).
-    // 작업 성격(quick/deep 등)은 프롬프트가 정하고, 모델은 이 카테고리가 고정한다.
-    "devin-max":         { "model": "opencodex/devin/swe-2", "reasoning": "max" },
-    // ultrabrain: 공유 베이스 고정 (2026-09-16 지정). [opencode] 블록은 senpi가 읽지 않으므로 senpi용은 여기서 고정.
-    "ultrabrain":        { "model": "openai-codex/gpt-5.6-terra",            "reasoning": "max" },
-    // architect: 공유 베이스 고정 (2026-09-16 지정). anthropic/claude 계열은 현재 인증 없음 → openai-codex로 고정.
-    "architect":         { "model": "openai-codex/gpt-5.6-terra",            "reasoning": "high" }
+    "visual-engineering": { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "artistry":           { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "deep-low":           { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "deep-high":          { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "quick":              { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "unspecified-low":    { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "unspecified-high":   { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "writing":            { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    // omo 자체 카테고리.
+    "memory-reflection":  { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "reflection":         { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    // kakaotalk-mcp 실행 전용이었으나 2026-09-21 전면 고정에 따라 같은 모델로 통일.
+    // devin/swe-2 로 되돌리려면 이 줄만 고치면 된다.
+    "devin-max":          { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    // 고난도 카테고리 2종은 호출 자체를 막는다(2026-09-21 사용자 지정).
+    // 호출하면 category_disabled 오류가 난다.
+    "ultrabrain":         { "disable": true },
+    "architect":          { "disable": true }
   },
-  // 내장 서브에이전트 모델 고정 (2026-09-16 지정). senpi task 엔진은 공유 베이스 agents만 읽는다.
-  // explore/librarian은 현재 내장 체인 1순위와 동일하지만, 체인 변동·폴백 미끄러짐 방지로 명시한다.
+  // 내장 서브에이전트 모델 고정. senpi task 엔진은 공유 베이스 agents만 읽는다.
+  // 에이전트 핀은 세션 가용 목록 검증을 거치므로, 불가하면 아래 categories 핀으로 떨어진다.
   "agents": {
-    "explore":         { "model": "openai-codex/gpt-5.6-luna-fast", "reasoning": "low" },
-    "librarian":       { "model": "openai-codex/gpt-5.6-luna-fast", "reasoning": "low" },
-    "plan-consultant": { "model": "openai-codex/gpt-5.6-terra",     "reasoning": "high" },
-    "plan-reviewer":   { "model": "openai-codex/gpt-5.6-terra",     "reasoning": "high" }
+    "explore":                  { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "librarian":                { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "plan-consultant":          { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "plan-reviewer":            { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "omo-senpi-code-reviewer":  { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "omo-senpi-gate-reviewer":  { "model": "opencodex/bai/deepseek-v4.1-flash" },
+    "omo-senpi-qa-executor":    { "model": "opencodex/bai/deepseek-v4.1-flash" }
   },
   // memory reflection 실행 카테고리.
   "memory": {

@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "command": "/opt/homebrew/bin/codex.opencodex-real",
+  "source": "configured",
+  "selectedVersion": "0.154.0",
+  "updatedAt": "2026-09-17T07:10:45.724Z",
+  "origin": "discovered"
+}

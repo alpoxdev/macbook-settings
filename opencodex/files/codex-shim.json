@@ -1,0 +1,13 @@
+{
+  "platform": "darwin",
+  "wrapperPath": "/opt/homebrew/bin/codex",
+  "originalPath": "/opt/homebrew/bin/codex",
+  "backupPath": "/opt/homebrew/bin/codex.opencodex-real",
+  "wrappers": [
+    {
+      "wrapperPath": "/opt/homebrew/bin/codex",
+      "originalPath": "/opt/homebrew/bin/codex",
+      "backupPath": "/opt/homebrew/bin/codex.opencodex-real"
+    }
+  ]
+}

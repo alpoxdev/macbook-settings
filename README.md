@@ -22,6 +22,8 @@ Personal machine config, shared across machines (MacBook, Mac mini).
   (symlinked to `~/.config/zsh/90-local.zsh`, never committed to this repo)
 - `omo/` — the OMO (`~/.omo`) config, copied into `omo/files/` by `omo/backup.sh`
   instead of symlinked (see below)
+- `opencodex/` — the opencodex gateway (`~/.opencodex`) config, copied into
+  `opencodex/files/` by `opencodex/backup.sh` (see below)
 
 Orca's `~/Library/Application Support/orca/orca-data.json` is a live per-machine
 app database (repos, worktrees, ssh targets, a session cookie, ...), so it is
@@ -96,6 +98,44 @@ survives anywhere under `omo/files/`.
 
 Still local-only: the agent memory repo at `~/.omo/memory/agents/*/repo` (personal
 notes, no remote) — it is not copied here because this repo is public.
+
+## opencodex config (`opencodex/`)
+
+```bash
+~/macbook-settings/opencodex/backup.sh              # ~/.opencodex -> opencodex/files/
+~/macbook-settings/opencodex/backup.sh --restore    # opencodex/files/ -> ~/.opencodex
+```
+
+A copy, not a symlink: the gateway rewrites `config.json` while it runs. Run
+`backup.sh`, commit, push. The `PATHS` list inside the script is the contract — a
+path that comes off the list is pruned out of `opencodex/files/` on the next run.
+
+Included: `config.json` (10 providers, combos, `clientIntegrations`), `codex-shim.json`,
+`codex-runtime.json`, `version.json`, `.opencodex-owner.json`.
+
+Deliberately excluded:
+
+- **credentials** — `auth.json` (provider OAuth) and `admin-api-token` are never on the
+  list. This repo is public.
+- **runtime telemetry** — `usage.jsonl` (191 MB), `routing-history.sqlite` (409 MB),
+  `service.log`, `crash.log`, `spend-ledger.jsonl`. That is ~600 MB of the directory and
+  all of it is regenerated as the gateway runs.
+- **ephemeral state** — `ocx.pid`, `runtime-port.json`, `responses-state.json`,
+  `responses-state-spill/`, `service-state.json`, `*-quota-cache.json`.
+- **derived/regenerable** — `catalog-backup*.json`, `config-mutation.sqlite`, and
+  `integrations/`. The `integrations/snapshots/` exports carry per-machine absolute
+  paths and the exporters rebuild them from `config.json`.
+- `config.json.bak.*` archives, and the ledger salts (useless without the excluded
+  ledgers).
+
+**Provider keys are redacted, not synced.** `config.json` embeds live upstream keys
+(`"apiKey": "sk-…"` for z.ai, cline, opencode-go, b.ai), so every `apiKey` value is
+replaced with `REDACTED` in the copy. A restore therefore leaves those four providers
+needing their keys re-entered by hand. The script refuses to finish if any
+credential-shaped value survives under `opencodex/files/`.
+
+`integrations/` is per-machine on purpose: the records hold absolute config paths
+such as `/Users/alpox/.gjc/agent/models.yml`.
 
 ## Sync changes
 

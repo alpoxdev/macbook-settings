@@ -45,4 +45,15 @@ link "$REPO_DIR/ghostty/config-macos" "$GHOSTTY_SUPPORT/config"
 mkdir -p "$HOME/.orca"
 link "$REPO_DIR/orca/agent-hooks" "$HOME/.orca/agent-hooks"
 
+# Orca rewrites keybindings.json when shortcuts are edited in its UI, so this one is a
+# copy rather than a symlink: the repo holds the canonical set and each machine applies
+# it. Any existing local bindings are backed up first.
+KB="$HOME/.orca/keybindings.json"
+if [[ -f "$KB" ]] && ! cmp -s "$REPO_DIR/orca/keybindings.json" "$KB"; then
+  mv "$KB" "$KB.bak.$(date +%Y%m%d%H%M%S)"
+  echo "Backed up existing $KB"
+fi
+cp "$REPO_DIR/orca/keybindings.json" "$KB"
+echo "Copied $KB from $REPO_DIR/orca/keybindings.json"
+
 echo "Done. Restart your shell or run: exec zsh"

@@ -11,6 +11,10 @@ Personal machine config, shared across machines (MacBook, Mac mini).
   the second file macOS Ghostty loads (after the one above, so it wins on
   conflicting keys: `background`, `cursor-color`, `font-size`)
 - `orca/agent-hooks/` — symlinked to `~/.orca/agent-hooks` (Orca agent hook scripts)
+- `orca/keybindings.json` — copied to `~/.orca/keybindings.json` (Orca keyboard shortcuts),
+  not symlinked: Orca rewrites that file when shortcuts are edited in its UI, so the
+  repo keeps the canonical set and `install.sh` applies it (backing up any local file
+  that differs first)
 - `orca/appearance.json` — Orca's appearance/theme/font settings (theme, sidebar
   tint, terminal font/theme/cursor/opacity, etc.), applied with
   `orca/apply-appearance.py` (see below)

@@ -65,9 +65,11 @@ Without Jetendard both terminals silently fall back to a default font.
 
 A copy, not a symlink: OMO rewrites `settings.json` and `models-store.json` while it
 runs, and keeps conversation history in the same tree, so linking the live files
-would leave the repo permanently dirty. Run `backup.sh`, commit, push.
+would leave the repo permanently dirty. Run `backup.sh`, commit, push. The `PATHS`
+list inside the script is the contract: a path that comes off the list is pruned out
+of `omo/files/` on the next run, so nothing lingers as a stale copy.
 
-Included: `omo.jsonc`, `settings.json`, `mcp.json`, `config.jsonc`, `models-store.json`,
+Included: `omo.jsonc`, `settings.json`, `config.jsonc`, `models-store.json`,
 `trust.json`, `rules/`, and the agent-side equivalents (`agent/settings.json`,
 `agent/models.json`, `agent/extensions/`, `agent/orca-pi-adapter/{bin,lib,test}`,
 the three `agent/*.js` title hooks).
@@ -78,12 +80,15 @@ installed binaries (`bin/fd`), and every `*.bak.*` / `backups/` /
 `migration-backup-*` / `repairs/` archive. Patch and editor leftovers that sit next to
 real files (`*.orig`, `*.rej`, `*~`) are deleted from the copy.
 
+**MCP servers are per-machine, not synced.** `mcp.json` and `agent/mcp.json` are off
+the list because the server entries embed `Authorization: Bearer ...` tokens. Each
+machine keeps its own; copy the file over by hand if you want the same servers
+there, then re-authenticate.
+
 **Credentials never leave the machine.** `auth.json`, `agent/auth.json`,
-`agent/mcp-auth/`, and `agent/credential-pool-state.json` are not in the list at all,
-and the `Authorization: Bearer ...` values inside `mcp.json` / `agent/mcp.json` are
-rewritten to `Bearer REDACTED` on the way in. This repo is public. The script refuses
-to finish if a credential-shaped value survives anywhere under `omo/files/`. After a
-restore, re-authenticate the MCP servers that used those tokens.
+`agent/mcp-auth/`, and `agent/credential-pool-state.json` are not on the list either.
+This repo is public, so the script refuses to finish if a credential-shaped value
+survives anywhere under `omo/files/`.
 
 Still local-only: the agent memory repo at `~/.omo/memory/agents/*/repo` (personal
 notes, no remote) — it is not copied here because this repo is public.

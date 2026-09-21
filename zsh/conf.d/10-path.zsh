@@ -20,15 +20,26 @@ export GEM_HOME="$HOME/.gem"
 export ANDROID_HOME="$HOME/Library/Android/sdk"
 export NVM_DIR="$HOME/.nvm"
 
+# Flutter ships its own `dart`; the Flutter entry below must precede Homebrew's
+# `dart` formula so the toolchain stays internally consistent (Flutter 3.47.2 ->
+# Dart 3.13.2). When Homebrew's Dart 3.12.1 wins, `dart format` reports diffs on
+# files the Flutter toolchain considers already formatted.
+#
+# The Android entries put the SDK's platform-tools/cmdline-tools/emulator ahead of
+# other copies so `adb`, `sdkmanager` and `emulator` resolve to $ANDROID_HOME.
 _zsh_path_prepend_ordered \
   "$HOME/.local/bin" \
   "$PNPM_HOME" \
   "$HOME/.opencode/bin" \
-  "/opt/homebrew/opt/node@24/bin" \
+  "/opt/homebrew/opt/node/bin" \
   "$HOME/.antigravity/antigravity/bin" \
   "$BUN_INSTALL/bin" \
   "$HOME/.rbenv/shims" \
   "$HOME/bin" \
+  "/Users/alpox/development/flutter/bin" \
+  "$ANDROID_HOME/cmdline-tools/latest/bin" \
+  "$ANDROID_HOME/platform-tools" \
+  "$ANDROID_HOME/emulator" \
   "/opt/homebrew/bin" \
   "/opt/homebrew/sbin" \
   "/usr/local/bin" \

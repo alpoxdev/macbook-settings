@@ -5,3 +5,15 @@ export LANG=ko_KR.UTF-8
 export EDITOR="vim"
 export PAGER="less"
 export LESS="-R"
+
+# Added by jcode installer
+export PATH="/Users/alpox/.local/bin:$PATH"
+
+# Toolchain PATH for non-interactive shells. ~/.zshrc loads ~/.config/zsh/10-path.zsh
+# only for INTERACTIVE shells, so anything spawned by a non-interactive shell (just,
+# make, CI-style runners) would otherwise fall back to Homebrew's `dart` 3.12.1
+# instead of the Dart bundled with the Flutter SDK (3.13.x). That mismatch makes
+# `dart format` report formatting diffs on files Flutter considers formatted.
+if [[ -r "$HOME/.config/zsh/10-path.zsh" ]]; then
+  source "$HOME/.config/zsh/10-path.zsh"
+fi

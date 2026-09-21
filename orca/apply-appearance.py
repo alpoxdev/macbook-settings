@@ -6,6 +6,9 @@ session cookies, ...) private to each machine, so it is never synced or
 symlinked wholesale. This only overlays the appearance-related keys from
 appearance.json into its "settings" object, leaving everything else intact.
 
+Orca 1.4.x keeps the live file at profiles/<profile>/orca-data.json; the
+top-level orca-data.json from older installs is still handled as a fallback.
+
 Quit Orca before running this so it doesn't overwrite the file on exit.
 """
 import json
@@ -14,25 +17,36 @@ from pathlib import Path
 
 REPO_DIR = Path(__file__).resolve().parent
 APPEARANCE_FILE = REPO_DIR / "appearance.json"
-DATA_FILE = Path.home() / "Library/Application Support/orca/orca-data.json"
+ORCA_DIR = Path.home() / "Library/Application Support/orca"
+
+
+def resolve_data_file():
+    """The file Orca is actually writing: newest profile file, else legacy top-level."""
+    profiles = sorted(ORCA_DIR.glob("profiles/*/orca-data.json"),
+                      key=lambda p: p.stat().st_mtime, reverse=True)
+    for candidate in [*profiles, ORCA_DIR / "orca-data.json"]:
+        if candidate.exists():
+            return candidate
+    return None
 
 
 def main():
-    if not DATA_FILE.exists():
-        print(f"{DATA_FILE} not found — launch Orca once first, then re-run this.")
+    data_file = resolve_data_file()
+    if data_file is None:
+        print(f"No Orca settings file under {ORCA_DIR} — launch Orca once first, then re-run this.")
         sys.exit(1)
 
     appearance = json.loads(APPEARANCE_FILE.read_text())
-    data = json.loads(DATA_FILE.read_text())
+    data = json.loads(data_file.read_text())
     data.setdefault("settings", {}).update(appearance)
 
-    backup = DATA_FILE.with_name(DATA_FILE.name + ".bak.pre-appearance")
+    backup = data_file.with_name(data_file.name + ".bak.pre-appearance")
     if not backup.exists():
-        backup.write_text(DATA_FILE.read_text())
-        print(f"Backed up {DATA_FILE} -> {backup}")
+        backup.write_text(data_file.read_text())
+        print(f"Backed up {data_file} -> {backup}")
 
-    DATA_FILE.write_text(json.dumps(data, indent=2, ensure_ascii=False))
-    print(f"Applied {len(appearance)} appearance settings to {DATA_FILE}")
+    data_file.write_text(json.dumps(data, indent=2, ensure_ascii=False))
+    print(f"Applied {len(appearance)} appearance settings to {data_file}")
 
 
 if __name__ == "__main__":

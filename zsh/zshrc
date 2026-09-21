@@ -18,3 +18,13 @@ unset file
 
 # bun completions
 [ -s "/Users/alpox/.bun/_bun" ] && source "/Users/alpox/.bun/_bun"
+
+
+# Added by jcode installer
+export PATH="/Users/alpox/.local/bin:$PATH"
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<

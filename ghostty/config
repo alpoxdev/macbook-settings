@@ -7,9 +7,10 @@
 # ============================================
 # 폰트 & 테마
 # ============================================
-font-family = "D2Coding"
+font-family = "Jetendard"
 font-size = 11
 font-thicken = false
+adjust-cell-width = 15%
 # theme = "Catppuccin Mocha"  # 기본 검은 배경 사용
 
 # ============================================

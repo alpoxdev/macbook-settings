@@ -33,12 +33,12 @@ kill-node() {
   local candidates_text pid current ppid cmdline
   local -a candidates pids skipped survivors
 
-  # 기본 예외: Codex/Claude/OMX/tmux 런타임이 쓰는 node 프로세스는 보존
+  # 기본 예외: GJC/Codex/Claude/OMX/tmux 런타임이 쓰는 node 프로세스는 보존
   # 자식 프로세스(MCP 서버 등)도 부모 체인에 이 키워드가 있으면 같이 보존한다.
   # 필요하면 호출 전에 KILL_NODE_EXCLUDE_PATTERN으로 덮어쓸 수 있음.
   local exclude_pattern="${KILL_NODE_EXCLUDE_PATTERN:-}"
   if [[ -z "$exclude_pattern" ]]; then
-    exclude_pattern='(^|[ /._-])(omx|oh-my-codex|claude-code|claude|codex|tmux)([ /._-]|$)'
+    exclude_pattern='(^|[ /._-])(gjc|gajae-code|gajae|omx|oh-my-codex|claude-code|claude|codex|tmux)([ /._-]|$)'
   fi
 
   _kill_node_is_protected() {
@@ -115,12 +115,12 @@ kill-bun() {
   local candidates_text pid current ppid cmdline
   local -a candidates pids skipped survivors
 
-  # 기본 예외: Codex/Claude/OMX/tmux + gjc(gajae-code) 런타임이 쓰는 bun 프로세스는 보존.
+  # 기본 예외: GJC/Codex/Claude/OMX/tmux 런타임이 쓰는 bun 프로세스는 보존.
   # 자식 프로세스(MCP 서버 등)도 부모 체인에 이 키워드가 있으면 같이 보존한다.
   # 필요하면 호출 전에 KILL_BUN_EXCLUDE_PATTERN으로 덮어쓸 수 있음.
   local exclude_pattern="${KILL_BUN_EXCLUDE_PATTERN:-}"
   if [[ -z "$exclude_pattern" ]]; then
-    exclude_pattern='(^|[ /._-])(omx|oh-my-codex|claude-code|claude|codex|tmux|gjc|gajae-code|gajae)([ /._-]|$)'
+    exclude_pattern='(^|[ /._-])(gjc|gajae-code|gajae|omx|oh-my-codex|claude-code|claude|codex|tmux)([ /._-]|$)'
   fi
 
   _kill_bun_is_protected() {

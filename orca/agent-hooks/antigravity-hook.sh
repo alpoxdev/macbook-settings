@@ -3,19 +3,44 @@ case "$ORCA_ANTIGRAVITY_EVENT" in
   Stop)
     printf '{"decision":""}\n'
     ;;
+  PreToolUse)
+    printf '{"decision":"ask"}\n'
+    ;;
   *)
     printf "{}\n"
     ;;
 esac
+payload=$({ command -p cat 2>/dev/null || cat; })
+if [ -z "$payload" ]; then
+  payload='{}'
+fi
+spool_hook_event() {
+  case "${ORCA_ANTIGRAVITY_EVENT:-}" in PreToolUse|PostToolUse|PostToolUseFailure) return 0 ;; esac
+  [ -n "${ORCA_AGENT_HOOK_ENDPOINT:-}" ] || return 0
+  [ -n "${ORCA_PANE_KEY:-}" ] || return 0
+  [ -r "$ORCA_AGENT_HOOK_ENDPOINT" ] || return 0
+  spool_base=${ORCA_AGENT_HOOK_ENDPOINT%/*}
+  spool_dir="$spool_base/spool"
+  mkdir -p "$spool_dir" 2>/dev/null || return 0
+  chmod 700 "$spool_dir" 2>/dev/null || :
+  spool_id=$(printf %s "${ORCA_PANE_KEY:-unknown}" | tail -c 36 | tr '/:' '__')
+  spool_file="$spool_dir/pane-$spool_id.jsonl"
+  if [ -f "$spool_file" ] && find "$spool_file" -mtime +7 -print -quit 2>/dev/null | grep -q .; then : > "$spool_file"; fi
+  [ -f "$spool_file" ] || : > "$spool_file"
+  spool_size=$(wc -c < "$spool_file" 2>/dev/null || printf 0)
+  [ "$spool_size" -lt 5242880 ] || return 0
+  spool_now=$(date +%s 2>/dev/null || printf 0)
+  spool_now=$((spool_now * 1000))
+  spool_json_escape() { printf %s "$1" | sed 's/\\/\\\\/g; s/"/\\"/g; s/[[:cntrl:]]/ /g'; }
+  { printf '\n{"hookEventName":"%s","paneKey":"%s","tabId":"%s","worktreeId":"%s","env":"%s","version":"%s","launchToken":"%s","source":"%s","receivedAt":%s,"payload":%s}\n' "$(spool_json_escape "${ORCA_ANTIGRAVITY_EVENT:-}")" "$(spool_json_escape "${ORCA_PANE_KEY:-}")" "$(spool_json_escape "${ORCA_TAB_ID:-}")" "$(spool_json_escape "${ORCA_WORKTREE_ID:-}")" "$(spool_json_escape "${ORCA_AGENT_HOOK_ENV:-}")" "$(spool_json_escape "${ORCA_AGENT_HOOK_VERSION:-}")" "$(spool_json_escape "${ORCA_AGENT_LAUNCH_TOKEN:-}")" "$(spool_json_escape "antigravity")" "$spool_now" "$payload"; } >> "$spool_file" 2>/dev/null || :
+  chmod 600 "$spool_file" 2>/dev/null || :
+}
 if [ -n "$ORCA_AGENT_HOOK_ENDPOINT" ] && [ -r "$ORCA_AGENT_HOOK_ENDPOINT" ]; then
   . "$ORCA_AGENT_HOOK_ENDPOINT" 2>/dev/null || :
 fi
 if [ -z "$ORCA_AGENT_HOOK_PORT" ] || [ -z "$ORCA_AGENT_HOOK_TOKEN" ] || [ -z "$ORCA_PANE_KEY" ]; then
+  spool_hook_event
   exit 0
-fi
-payload=$(cat)
-if [ -z "$payload" ]; then
-  payload='{}'
 fi
 printf '%s' "$payload" | curl -sS -X POST "http://127.0.0.1:${ORCA_AGENT_HOOK_PORT}/hook/antigravity" \
   --connect-timeout 0.5 --max-time 1.5 \
@@ -28,5 +53,5 @@ printf '%s' "$payload" | curl -sS -X POST "http://127.0.0.1:${ORCA_AGENT_HOOK_PO
   --data-urlencode "env=${ORCA_AGENT_HOOK_ENV}" \
   --data-urlencode "version=${ORCA_AGENT_HOOK_VERSION}" \
   --data-urlencode "hook_event_name=${ORCA_ANTIGRAVITY_EVENT}" \
-  --data-urlencode "payload@-" >/dev/null 2>&1 || true
+  --data-urlencode "payload@-" >/dev/null 2>&1 || spool_hook_event
 exit 0

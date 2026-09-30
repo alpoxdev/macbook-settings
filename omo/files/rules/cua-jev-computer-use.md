@@ -66,7 +66,7 @@ Jev (bounded 선택) — **b.ai 를 통해**:
 - 무엇: 저장소에 "이 동작이 어디 있나" 질문을 던지면 관련 파일·선언·소스 발췌를 stdout 으로 돌려주는 CLI. 파일 이름을 모를 때 유용하다. 정확한 심볼·경로를 알면 `rg`·직접 읽기가 낫다.
 - 설치: `bun add -g @dzhng/jevgrep` (Node 22+ 필요) → `~/.bun/bin/jg` (v0.7.0).
 - 사용: `jg "<질문>" [루트]` · 파일 수만 보려면 `jg files [루트]`.
-- <b>인증 상태: 미완</b> — 지원 공급자는 Vercel AI Gateway / TypeSafe / OpenRouter / OpenCode Zen / (custom TypeSafe 호환 엔드포인트). 이 맥에는 그 키가 없다.
+- <b>인증: 완료 (2026-09-30)</b> — TypeSafe 키를 콘솔(console.typesafe.ai, alpoxdev@gmail.com)에서 발급해 `jg auth --provider typesafe --stdin` 으로 저장했다. `jg doctor` → "Jev connection verified through TypeSafe". 실제 검색 검증됨(horon.ai 에서 'desktop theme/design token' 질문 → packages/tokens/src/* 를 정확히 반환).
   - b.ai 는 <b>jg 에 못 쓴다</b>: b.ai 프록시가 `/v1/chat/completions`·`/v1/messages`·`/v1/responses`·`/v1/decisions`·`/v1/models`·`/v1/images/*` 만 허용하는데, jg 의 custom 엔드포인트는 TypeSafe 의 `systemone` 경로를 호출해 403 이 난다(실측).
-  - OpenCode Zen 키가 있어야 `jg auth --provider opencode --stdin` 이 동작한다(opencode-go 키는 402 insufficient funds 로 실패).
+  - 키를 새로 넣어야 하면: `printf '%s' "$KEY" | jg auth --provider typesafe --stdin` (또는 `--provider openrouter`). 키를 바꿔 저장하면 이전 설정은 대체된다.
 - 인증 명령(custom 예): `jg auth --provider custom --base-url URL --model ID --stdin`. 스킬 설치: `jg skill --global --yes`.

@@ -166,7 +166,7 @@ test('title spinner uses only the generated session name after session_info_chan
   assert.deepEqual(titles, ['{Fix Orca titles}'])
   assert.match(
     await readFile(process.env.ORCA_TEST_ORCA_LOG, 'utf8'),
-    /^terminal rename --terminal term_qa --title \{Fix Orca titles\} --json$/m
+    /^terminal rename --terminal term_qa --title Fix Orca titles --json$/m
   )
 })
 
@@ -265,8 +265,8 @@ test('session renames update only the owning shared tab for split panes', async 
   const calls = await readFile(process.env.ORCA_TEST_ORCA_LOG, 'utf8')
   assert.match(calls, /^terminal show --terminal term_left --json/m)
   assert.match(calls, /^terminal show --terminal term_right --json/m)
-  assert.match(calls, /^terminal rename --terminal term_left --title \{왼쪽 세션\} --json$/m)
-  assert.match(calls, /^terminal rename --terminal term_right --title \{오른쪽 세션\} --json$/m)
+  assert.match(calls, /^terminal rename --terminal term_left --title 왼쪽 세션 --json$/m)
+  assert.match(calls, /^terminal rename --terminal term_right --title 오른쪽 세션 --json$/m)
   assert.doesNotMatch(calls, /terminal rename --terminal term_(?!left|right)/)
 })
 

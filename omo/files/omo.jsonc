@@ -18,42 +18,78 @@
   // 전부 opencodex/bai/deepseek-v4.1-flash 고정 (2026-09-21). bai는 비추론 모델이라
   // reasoning/variant 키를 두지 않는다.
   "categories": {
-    "visual-engineering": { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "artistry":           { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "deep-low":           { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "deep-high":          { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "quick":              { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "unspecified-low":    { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "unspecified-high":   { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "writing":            { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    // omo 자체 카테고리.
-    "memory-reflection":  { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "reflection":         { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    // kakaotalk-mcp 실행 전용이었으나 2026-09-21 전면 고정에 따라 같은 모델로 통일.
-    // devin/swe-2 로 되돌리려면 이 줄만 고치면 된다.
-    "devin-max":          { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    // 고난도 카테고리 2종은 호출 자체를 막는다(2026-09-21 사용자 지정).
-    // 호출하면 category_disabled 오류가 난다.
-    "ultrabrain":         { "disable": true },
-    "architect":          { "disable": true }
+    "visual-engineering": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "artistry": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "deep-low": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "deep-high": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "quick": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "unspecified-low": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "unspecified-high": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "writing": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "memory-reflection": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "reflection": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "devin-max": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "ultrabrain": {
+      "disable": true
+    },
+    "architect": {
+      "disable": true
+    }
   },
   // 내장 서브에이전트 모델 고정. senpi task 엔진은 공유 베이스 agents만 읽는다.
   // 에이전트 핀은 세션 가용 목록 검증을 거치므로, 불가하면 아래 categories 핀으로 떨어진다.
   "agents": {
-    "explore":                  { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "librarian":                { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "plan-consultant":          { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "plan-reviewer":            { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "omo-senpi-code-reviewer":  { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "omo-senpi-gate-reviewer":  { "model": "opencodex/bai/deepseek-v4.1-flash" },
-    "omo-senpi-qa-executor":    { "model": "opencodex/bai/deepseek-v4.1-flash" }
+    "explore": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "librarian": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "plan-consultant": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "plan-reviewer": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "omo-senpi-code-reviewer": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "omo-senpi-gate-reviewer": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    },
+    "omo-senpi-qa-executor": {
+      "model": "opencodex/bai/deepseek-v4.1-flash"
+    }
   },
   // memory reflection 실행 카테고리.
   "memory": {
-    "reflection": { "category": "reflection" }
+    "reflection": {
+      "category": "reflection"
+    }
   },
   "[opencode]": {
-    "codegraph": {},
     "agents": {
       "sisyphus": {
         "model": "openai/gpt-5.6-terra",
@@ -108,7 +144,6 @@
         "reasoning": "medium"
       }
     },
-    // ultrabrain만 하네스별 유지; 나머지 카테고리는 공용 베이스(위)의 opencodex 매핑을 따른다.
     "categories": {
       "ultrabrain": {
         "model": "openai/gpt-5.6-sol",
@@ -233,7 +268,8 @@
   "_migrations": [
     "2026-07-codex-config-jsonc",
     "2026-07-opencode-config-unification",
-    "2026-08-reasoning-unification"
+    "2026-08-reasoning-unification",
+    "2026-09-opencode-routing-notice"
   ],
   "legacy_migrations": {
     "/Users/alpox/.config/opencode/oh-my-openagent.json": [

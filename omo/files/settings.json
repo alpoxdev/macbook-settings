@@ -2,7 +2,7 @@
   "lastChangelogVersion": "2026.8.11-4",
   "theme": "dark",
   "defaultProvider": "opencodex",
-  "defaultModel": "gpt-5.6-terra",
+  "defaultModel": "bai/deepseek-v4.1-flash",
   "packages": [
     "npm:pi-mcp-adapter"
   ],
@@ -97,11 +97,12 @@
   },
   "defaultThinkingLevel": "high",
   "retry": {
-    "modelFallback": false
+    "modelFallback": true
   },
   "uiMode": "regular",
   "showHardwareCursor": true,
   "enabledModels": [
+    "opencodex/bai/deepseek-v4.1-flash",
     "opencodex/**",
     "anthropic/**",
     "openai-codex/**"

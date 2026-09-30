@@ -52,7 +52,7 @@ function renameOrcaTab(title: string): void {
   if (!terminal) return
   try {
     const childProcess = getNodeBuiltin('child_process')
-    childProcess?.execFileSync('orca', ['terminal', 'rename', '--terminal', terminal, '--title', `{${title}}`, '--json'], {
+    childProcess?.execFileSync('orca', ['terminal', 'rename', '--terminal', terminal, '--title', title, '--json'], {
       encoding: 'utf8',
       timeout: 1000,
       stdio: ['ignore', 'ignore', 'ignore']

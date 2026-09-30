@@ -5,7 +5,8 @@
       "api": "openai-completions",
       "apiKey": "opencodex-loopback",
       "compat": {
-        "sendSessionAffinityHeaders": true
+        "sendSessionAffinityHeaders": true,
+        "supportsDeveloperRole": false
       },
       "models": [
         {
@@ -29,10 +30,11 @@
           "maxTokens": 32000
         },
         {
-          "id": "anthropic/claude-opus-4-8",
-          "name": "claude-opus-4-8 (anthropic)",
+          "id": "anthropic/claude-opus-5-5",
+          "name": "claude-opus-5-5 (anthropic)",
           "input": [
-            "text"
+            "text",
+            "image"
           ],
           "reasoning": true,
           "thinkingLevelMap": {
@@ -43,45 +45,22 @@
             "high": "high",
             "xhigh": "xhigh",
             "max": "max"
-          }
-        },
-        {
-          "id": "anthropic/claude-opus-5",
-          "name": "claude-opus-5 (anthropic)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "thinkingLevelMap": {
-            "off": null,
-            "minimal": null,
-            "low": "low",
-            "medium": "medium",
-            "high": "high",
-            "xhigh": "xhigh",
-            "max": "max"
-          }
-        },
-        {
-          "id": "anthropic/claude-sonnet-5",
-          "name": "claude-sonnet-5 (anthropic)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "thinkingLevelMap": {
-            "off": null,
-            "minimal": null,
-            "low": "low",
-            "medium": "medium",
-            "high": "high",
-            "xhigh": "xhigh",
-            "max": "max"
-          }
+          },
+          "contextWindow": 950000,
+          "maxTokens": 32000
         },
         {
           "id": "bai/deepseek-v4.1-flash",
           "name": "deepseek-v4.1-flash (bai)",
+          "input": [
+            "text"
+          ],
+          "contextWindow": 950000,
+          "maxTokens": 32000
+        },
+        {
+          "id": "cline/fireworks-ember-1",
+          "name": "fireworks/ember-1 (cline)",
           "input": [
             "text"
           ],
@@ -116,7 +95,7 @@
           "thinkingLevelMap": {
             "off": null,
             "minimal": null,
-            "low": null,
+            "low": "low",
             "medium": null,
             "high": "high",
             "xhigh": null,
@@ -174,7 +153,7 @@
           "thinkingLevelMap": {
             "off": null,
             "minimal": null,
-            "low": null,
+            "low": "low",
             "medium": null,
             "high": "high",
             "xhigh": null,
@@ -261,8 +240,8 @@
           "maxTokens": 32000
         },
         {
-          "id": "gpt-5.6-luna",
-          "name": "gpt-5.6-luna (native)",
+          "id": "gpt-6-astra",
+          "name": "gpt-6-astra (native)",
           "input": [
             "text",
             "image"
@@ -277,12 +256,12 @@
             "xhigh": "xhigh",
             "max": "max"
           },
-          "contextWindow": 922000,
+          "contextWindow": 872000,
           "maxTokens": 32000
         },
         {
-          "id": "gpt-5.6-luna--fast",
-          "name": "gpt-5.6-luna Fast (native)",
+          "id": "gpt-6-astra--fast",
+          "name": "gpt-6-astra Fast (native)",
           "input": [
             "text",
             "image"
@@ -297,12 +276,12 @@
             "xhigh": "xhigh",
             "max": "max"
           },
-          "contextWindow": 922000,
+          "contextWindow": 872000,
           "maxTokens": 32000
         },
         {
-          "id": "gpt-5.6-sol",
-          "name": "gpt-5.6-sol (native)",
+          "id": "gpt-6-luna",
+          "name": "gpt-6-luna (native)",
           "input": [
             "text",
             "image"
@@ -317,12 +296,12 @@
             "xhigh": "xhigh",
             "max": "max"
           },
-          "contextWindow": 922000,
+          "contextWindow": 872000,
           "maxTokens": 32000
         },
         {
-          "id": "gpt-5.6-sol--fast",
-          "name": "gpt-5.6-sol Fast (native)",
+          "id": "gpt-6-luna--fast",
+          "name": "gpt-6-luna Fast (native)",
           "input": [
             "text",
             "image"
@@ -337,12 +316,12 @@
             "xhigh": "xhigh",
             "max": "max"
           },
-          "contextWindow": 922000,
+          "contextWindow": 872000,
           "maxTokens": 32000
         },
         {
-          "id": "gpt-5.6-terra",
-          "name": "gpt-5.6-terra (native)",
+          "id": "gpt-6-sol",
+          "name": "gpt-6-sol (native)",
           "input": [
             "text",
             "image"
@@ -357,12 +336,12 @@
             "xhigh": "xhigh",
             "max": "max"
           },
-          "contextWindow": 922000,
+          "contextWindow": 872000,
           "maxTokens": 32000
         },
         {
-          "id": "gpt-5.6-terra--fast",
-          "name": "gpt-5.6-terra Fast (native)",
+          "id": "gpt-6-sol--fast",
+          "name": "gpt-6-sol Fast (native)",
           "input": [
             "text",
             "image"
@@ -377,27 +356,7 @@
             "xhigh": "xhigh",
             "max": "max"
           },
-          "contextWindow": 922000,
-          "maxTokens": 32000
-        },
-        {
-          "id": "openai/gpt-6-astra",
-          "name": "GPT-6 Astra (openai)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "contextWindow": 1050000,
-          "maxTokens": 32000
-        },
-        {
-          "id": "openai/gpt-6-astra--fast",
-          "name": "GPT-6 Astra Fast (openai)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "contextWindow": 1050000,
+          "contextWindow": 872000,
           "maxTokens": 32000
         },
         {
